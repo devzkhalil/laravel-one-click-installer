@@ -11,9 +11,9 @@
             <label for="license_key">
                 Enter You License Key <span class="text-danger">*</span>
             </label>
-            <input type="text" class="form-control @error('license') is-invalid @enderror" id="license_key" name="license"
-                value="{{ old('license') }}" placeholder="bfa25.....">
-            @error('license')
+            <input type="text" class="form-control @error($license_input_name) is-invalid @enderror" id="license_key"
+                name="{{ $license_input_name }}" value="{{ old($license_input_name) }}" placeholder="bfa25.....">
+            @error($license_input_name)
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong></span>
             @enderror

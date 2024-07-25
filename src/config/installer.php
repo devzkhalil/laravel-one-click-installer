@@ -73,6 +73,7 @@ return [
      */
 
     'license' => [
+        'license_input_name' => 'license',
         'api' => null,
     ],
 

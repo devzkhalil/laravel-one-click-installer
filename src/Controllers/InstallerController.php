@@ -18,6 +18,7 @@ class InstallerController extends Controller
     public $stepsWithUrls = [];
     public $support = false;
     public $symlink = null;
+    public $license_input_name = 'license';
 
     public function __construct(Requirements $requirements)
     {
@@ -33,6 +34,7 @@ class InstallerController extends Controller
             'database_setup' => 'installer.database',
             'smtp_setup' => 'installer.smtp',
         ];
+        $this->license_input_name = config('installer.license.license_input_name');
     }
 
     public function begin()
@@ -69,13 +71,14 @@ class InstallerController extends Controller
             return $next_step;
         };
 
-        return view('installer::license-validation');
+        $license_input_name = $this->license_input_name;
+        return view('installer::license-validation', compact('license_input_name'));
     }
 
     public function licenseValidationProcess(Request $request)
     {
         $request->validate([
-            'license' => 'required',
+            $this->license_input_name => 'required',
         ]);
 
         try {
@@ -85,10 +88,10 @@ class InstallerController extends Controller
             if ($response->status() == 200 && $response['success']) {
                 return redirect($this->getNextStep());
             } else {
-                return redirect()->back()->withErrors(['license' => 'The provided license is invalid. Please check the license number and try again.']);
+                return redirect()->back()->withErrors([$this->license_input_name => 'The provided license is invalid. Please check the license number and try again.']);
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->withErrors(['license' => $th->getMessage()]);
+            return redirect()->back()->withErrors([$this->license_input_name => $th->getMessage()]);
         }
     }
 
