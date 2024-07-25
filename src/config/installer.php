@@ -5,30 +5,25 @@ return [
     /**
      * INSTALLER CONFIGURATION
      * --------------------------------------
-     * Configure you application installer
-     * before you deploy the installer.
-     * 
+     * Configure your application installer
+     * before deploying the installer.
      */
-
+    
     'php' => [
         /**
          * MINIMUM PHP VERSION
          * --------------------------------------
-         * Define the minimum php version 
-         * required for you application
-         * 
+         * Define the minimum PHP version required
+         * for your application.
          */
-
         'min' => '8.3.0',
 
         /**
          * REQUIRED PHP EXTENSIONS
          * --------------------------------------
-         * Define here which extensions are
-         * required for your application.
-         * 
+         * Define the PHP extensions required
+         * for your application.
          */
-
         'extensions' => [
             'tokenizer',
             'json',
@@ -50,13 +45,13 @@ return [
     ],
 
     /**
-     * HERE IS THE ALL STEPS FOR INSTALLER
+     * INSTALLATION STEPS
      * --------------------------------------
-     * If you don't any one just comment out this step
-     * Please don't change single word, 
-     * if it then system will be break
+     * Define all steps for the installer.
+     * Comment out any step you don't need.
+     * Do not change any word; altering the
+     * steps can break the system.
      */
-
     'steps' => [
         // 'license_validation',
         'check_required_extensions',
@@ -65,67 +60,55 @@ return [
         'smtp_setup',
     ],
 
-
     /**
      * LICENSE INFORMATION
      * --------------------------------------
-     * Give your license validation api 
+     * Provide your license validation API.
      */
-
     'license' => [
         'license_input_name' => 'license',
         'api' => null,
     ],
 
     /**
-     * CHECK FOR SYMLINK
+     * SYMLINK SUPPORT
      * --------------------------------------
-     * If your migration contains the artisan
-     * command of storage:link , or any 
-     * symbolic link operation, then you 
-     * might need to check if your hosting/system
-     * service supports creating symlinks
-     * 
+     * If your migrations include the artisan
+     * command `storage:link` or any symbolic
+     * link operations, check if your hosting/system
+     * supports creating symlinks.
      */
-
     'symlink' => true,
 
     /**
      * PERFORM MIGRATION?
      * --------------------------------------
-     * Does you application runs migration 
-     * to setup your database?
-     * 
+     * Does your application run migrations
+     * to set up your database?
      */
-
     'migration' => false,
 
     /**
      * SQL FILE NAME
      * --------------------------------------
-     * If your application does not like
-     * migration to setup db, and you want
-     * to use .sql file to upload to DB
-     * to setup, define its name here.
+     * If your application does not use
+     * migrations to set up the database,
+     * and you prefer using an SQL file,
+     * define its name here.
      * 
-     * It should be placed inside "database/sql/app.sql"
-     * directory.
+     * Place the SQL file inside "database/sql/app.sql".
      * 
      * example: 'sql' => 'app.sql'
-     * 
      */
-
     'sql' => null,
 
     /**
-     * SMTP ENV DATA
+     * SMTP ENVIRONMENT VARIABLES
      * --------------------------------------
-     * If you want to setup some more 
-     * env attribute during setup time,
-     * place them bellow here.
-     * 
+     * If you need to set up additional
+     * environment variables during setup,
+     * define them here.
      */
-
     'smtp' => [
         [
             'key' => 'MAIL_MAILER',
@@ -162,22 +145,19 @@ return [
     ],
 
     /**
-     * COMPLETE INSTALLATION REDIRECT
+     * COMPLETION REDIRECT
      * --------------------------------------
-     * Redirect after completing the 
-     * installation.
-     * Provide url here.
+     * Define the URL to redirect to after
+     * completing the installation.
      * 
-     * example: /home
+     * example: '/home'
      */
-
     'redirect' => '/',
 
     /**
-     * INSTALLER CONFIGURATION 
+     * INSTALLER STATUS
      * --------------------------------------
-     * Do not change these configs.
+     * Do not change these configurations.
      */
-
     'installed' => env('INSTALLER_INSTALLED', false),
 ];
