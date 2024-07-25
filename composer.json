@@ -6,6 +6,7 @@
         }
     },
     "minimum-stability": "stable",
+    "prefer-stable": true,
     "authors": [{
         "name": "devzkhalil",
         "email": "devzkhalil@gmail.com"
