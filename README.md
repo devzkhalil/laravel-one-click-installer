@@ -205,10 +205,11 @@ php artisan config:cache
 - Installer setup is always developer-end work, so be sure your migration runs without any bug normally. A developer can manually check the migration from fresh terminal install, even the installer give the migration output, the user can not debug your migration errors. So before applying installer, be sure about your migrations.
 
 ## Examples 
-![Larataller | Step 1](examples/step1.png)
-![Larataller | Step 2](examples/step2.png)
-![Larataller | Step 3](examples/step3.png)
-![Larataller | Step 4](examples/step4.png)
+![LaravelOneClickInstaller | Step 1](examples/step1.png)
+![LaravelOneClickInstaller | Step 2](examples/step2.png)
+![LaravelOneClickInstaller | Step 3](examples/step3.png)
+![LaravelOneClickInstaller | Step 4](examples/step4.png)
+![LaravelOneClickInstaller | Step 5](examples/step5.png)
 
 ## Advanced Usage
 
