@@ -1,0 +1,21 @@
+{
+    "name": "devzkhalil/laravel-one-click-installer",
+    "autoload": {
+        "psr-4": {
+            "Devzkhalil\\Installer\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "authors": [{
+        "name": "devzkhalil",
+        "email": "devzkhalil@gmail.com"
+    }],
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Devzkhalil\\Installer\\InstallerServiceProvider"
+            ]
+        }
+    }
+}
