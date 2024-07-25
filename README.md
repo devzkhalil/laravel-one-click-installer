@@ -7,7 +7,7 @@ The installer package you need for your laravel application in release field. Th
 You can install the package via composer:
 
 ``` bash
-    composer require devzkhalil/laravel-one-click-installer
+composer require devzkhalil/laravel-one-click-installer
 ```
 
 ### Publish Configuration
@@ -15,7 +15,7 @@ You can install the package via composer:
 Publish configuration file
 
 ```bash
-    php artisan vendor:publish --tag=installer
+php artisan vendor:publish --tag=installer-config
 ```
 
 ### Publish Assets
@@ -23,7 +23,7 @@ Publish configuration file
 Publish assets file
 
 ```bash
-    php artisan vendor:publish --tag=installer-assets
+php artisan vendor:publish --tag=installer-assets
 ```
 
 ### Setup and configure
@@ -190,7 +190,7 @@ The configuration file ``config/installer.php`` comes with some installation pro
 
 After done configuring
 ```bash
-    php artisan config:cache
+php artisan config:cache
 ```
 
 ## Usage
@@ -215,7 +215,7 @@ After done configuring
 Export the views to customize your design of installer! (If you wish to customize)
 
 ```bash
-    php artisan vendor:publish --tag=installer-views
+php artisan vendor:publish --tag=installer-views
 ```
 
 ## Changelog
