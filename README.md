@@ -7,7 +7,7 @@ The installer package you need for your laravel application in release field. Th
 You can install the package via composer:
 
 ``` bash
-composer require devzkhalil/laravel-one-click-installer
+composer require devzkhalil/laravel-one-click-installer:dev-master
 ```
 
 ### Publish Configuration
