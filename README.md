@@ -7,7 +7,7 @@ The installer package you need for your laravel application in release field. Th
 You can install the package via composer:
 
 ``` bash
-composer require devzkhalil/laravel-one-click-installer:dev-master
+composer require devzkhalil/laravel-one-click-installer
 ```
 
 ### Publish Configuration
@@ -183,13 +183,6 @@ The configuration file ``config/installer.php`` comes with some installation pro
      * example: '/home'
      */
     'redirect' => '/',
-
-    /**
-     * INSTALLER STATUS
-     * --------------------------------------
-     * Do not change these configurations.
-     */
-    'installed' => env('INSTALLER_INSTALLED', false),
 ```
 
 
