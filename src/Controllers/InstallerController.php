@@ -258,7 +258,7 @@ class InstallerController extends Controller
             return route($this->stepsWithUrls[$next_step]);
         } else {
             // otherwise end the installer process
-            Environment::append('INSTALLER_INSTALLED', 'true');
+            Environment::makeInstalledFile();
             return url(config('installer.redirect'));
         }
     }

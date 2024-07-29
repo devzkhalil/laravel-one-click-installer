@@ -153,11 +153,4 @@ return [
      * example: '/home'
      */
     'redirect' => '/',
-
-    /**
-     * INSTALLER STATUS
-     * --------------------------------------
-     * Do not change these configurations.
-     */
-    'installed' => env('INSTALLER_INSTALLED', false),
 ];

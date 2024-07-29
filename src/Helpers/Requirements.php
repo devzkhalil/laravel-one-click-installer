@@ -1,7 +1,8 @@
-<?php 
+<?php
+
 namespace Devzkhalil\Installer\Helpers;
 
-class Requirements 
+class Requirements
 {
     public $phpVersion;
     public $phpExts;
@@ -12,8 +13,7 @@ class Requirements
         $currentVersion = $this->getPhpVersionInfo();
         $supported = false;
 
-        if (version_compare($currentVersion['version'], $version) >= 0) 
-        {
+        if (version_compare($currentVersion['version'], $version) >= 0) {
             $supported = true;
         }
 
@@ -30,10 +30,9 @@ class Requirements
     public function checkPHPExts(array $extensions)
     {
         $results = [];
-        
-        foreach($extensions as $ext)
-        {
-            array_push($results,['ext' => $ext, 'installed' => extension_loaded($ext)]);
+
+        foreach ($extensions as $ext) {
+            array_push($results, ['ext' => $ext, 'installed' => extension_loaded($ext)]);
         }
 
         return $results;
@@ -43,15 +42,11 @@ class Requirements
     {
         $results = [];
 
-        if (function_exists('apache_get_modules')) 
-        {
-            foreach($mods as $mod)
-            {
-                array_push($results,['mod' => $mod, 'enabled' => in_array($mod, apache_get_modules())]);
+        if (function_exists('apache_get_modules')) {
+            foreach ($mods as $mod) {
+                array_push($results, ['mod' => $mod, 'enabled' => in_array($mod, apache_get_modules())]);
             }
-        }
-        else
-        {
+        } else {
             $results['error'] = true;
         }
 
@@ -59,16 +54,13 @@ class Requirements
     }
 
     public function validateSupport($phpVersion, $phpExts)
-    { 
-        if(!$phpVersion['supported'])
-        {
+    {
+        if (!$phpVersion['supported']) {
             return false;
         }
 
-        foreach($phpExts as $ext)
-        {
-            if(!$ext['installed'])
-            {
+        foreach ($phpExts as $ext) {
+            if (!$ext['installed']) {
                 return false;
             }
         }
@@ -78,8 +70,7 @@ class Requirements
 
     public function checkSymLink()
     {
-        if(config('installer.symlink'))
-        {
+        if (config('installer.symlink')) {
             return function_exists('symlink');
         }
     }
