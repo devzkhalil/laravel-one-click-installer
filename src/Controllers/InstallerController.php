@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 use Devzkhalil\Installer\Helpers\Environment;
 use Devzkhalil\Installer\Helpers\Requirements;
 
@@ -46,7 +47,7 @@ class InstallerController extends Controller
             abort(404, 'No step enabled for installer.');
         }
 
-        session()->put('current_step', $first_step);
+        $this->setCurrentStep($first_step);
 
         switch ($first_step) {
             case 'license_validation':
@@ -232,7 +233,7 @@ class InstallerController extends Controller
 
     public function checkPermissionToGoNextStep(string $step): mixed
     {
-        $current_step = session()->get('current_step');
+        $current_step = $this->getCurrentStep();
 
         if ($current_step !== $step) {
             return redirect()->back();
@@ -244,7 +245,7 @@ class InstallerController extends Controller
     public function getNextStep(): string
     {
         // get the current step
-        $current_step = session()->get('current_step');
+        $current_step = $this->getCurrentStep();
         $steps = $this->enabledSteps;
 
         // find the index of the current step
@@ -254,12 +255,26 @@ class InstallerController extends Controller
         if ($current_index !== false && $current_index < count($steps) - 1) {
             // get the next step
             $next_step = $steps[$current_index + 1];
-            session()->put('current_step', $next_step);
+            $this->setCurrentStep($next_step);
             return route($this->stepsWithUrls[$next_step]);
         } else {
             // otherwise end the installer process
             Environment::makeInstalledFile();
             return url(config('installer.redirect'));
         }
+    }
+
+    public function setCurrentStep($step)
+    {
+        // define file name
+        $filePath = storage_path('framework/installer-step.php');
+
+        // create the file
+        file_put_contents($filePath, $step);
+    }
+
+    public function getCurrentStep()
+    {
+        return file_get_contents(storage_path('framework/installer-step.php'));
     }
 }
