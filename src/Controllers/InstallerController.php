@@ -47,7 +47,12 @@ class InstallerController extends Controller
             abort(404, 'No step enabled for installer.');
         }
 
-        $this->setCurrentStep($first_step);
+        if (!file_exists(storage_path('framework/installer-step.php'))) {
+            // define file name
+            $filePath = storage_path('framework/installer-step.php');
+            // create the file
+            file_put_contents($filePath, $first_step);
+        }
 
         switch ($first_step) {
             case 'license_validation':
@@ -236,7 +241,7 @@ class InstallerController extends Controller
         $current_step = $this->getCurrentStep();
 
         if ($current_step !== $step) {
-            return redirect()->back();
+            return redirect('/');
         }
 
         return true;
@@ -255,22 +260,21 @@ class InstallerController extends Controller
         if ($current_index !== false && $current_index < count($steps) - 1) {
             // get the next step
             $next_step = $steps[$current_index + 1];
-            $this->setCurrentStep($next_step);
+
+            // define file name
+            $filePath = storage_path('framework/installer-step.php');
+            // create the file
+            file_put_contents($filePath, $next_step);
+
             return route($this->stepsWithUrls[$next_step]);
         } else {
             // otherwise end the installer process
             Environment::makeInstalledFile();
+            if (file_exists(storage_path('framework/installer-step.php'))) {
+                unlink(storage_path('framework/installer-step.php'));
+            }
             return url(config('installer.redirect'));
         }
-    }
-
-    public function setCurrentStep($step)
-    {
-        // define file name
-        $filePath = storage_path('framework/installer-step.php');
-
-        // create the file
-        file_put_contents($filePath, $step);
     }
 
     public function getCurrentStep()
