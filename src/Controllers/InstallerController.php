@@ -166,9 +166,6 @@ class InstallerController extends Controller
             Artisan::call('config:clear');
             Artisan::call('cache:clear');
 
-            $this->uploadDatabase();
-            $this->migration();
-
             return response()->json([
                 'success' => true,
                 'redirect_url' => $this->getNextStep(),
@@ -270,6 +267,10 @@ class InstallerController extends Controller
         } else {
             // otherwise end the installer process
             Environment::makeInstalledFile();
+
+            $this->uploadDatabase();
+            $this->migration();
+            
             if (file_exists(storage_path('framework/installer-step.php'))) {
                 unlink(storage_path('framework/installer-step.php'));
             }
