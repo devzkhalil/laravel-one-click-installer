@@ -234,6 +234,24 @@ class InstallerController extends Controller
         $current_step = $this->getCurrentStep();
 
         if ($current_step !== $step) {
+
+            // get the current step
+            $steps = $this->enabledSteps;
+
+            // find the index of the current step
+            $first_step = $steps[0];
+
+            // check if the current step is not the last step in the array
+            if ($first_step !== false) {
+
+                // define file name
+                $filePath = storage_path('framework/installer-step.php');
+                // create the file
+                file_put_contents($filePath, $first_step);
+
+                return redirect('/');
+            }
+
             return redirect('/');
         }
 
