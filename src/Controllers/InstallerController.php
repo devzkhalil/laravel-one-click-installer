@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
 use Devzkhalil\Installer\Helpers\Environment;
 use Devzkhalil\Installer\Helpers\Requirements;
 
@@ -132,8 +131,7 @@ class InstallerController extends Controller
         try {
             Environment::save($request->except('_token'));
 
-            Artisan::call('config:clear');
-            Artisan::call('cache:clear');
+            Artisan::call('config:cache');
 
             return response()->json([
                 'success' => true,
@@ -163,8 +161,7 @@ class InstallerController extends Controller
         try {
             Environment::save($request->except('_token'));
 
-            Artisan::call('config:clear');
-            Artisan::call('cache:clear');
+            Artisan::call('config:cache');
 
             return response()->json([
                 'success' => true,
@@ -217,8 +214,7 @@ class InstallerController extends Controller
         try {
             Environment::save($request->except('_token'));
 
-            Artisan::call('config:clear');
-            Artisan::call('cache:clear');
+            Artisan::call('config:cache');
 
             return response()->json([
                 'success' => true,
