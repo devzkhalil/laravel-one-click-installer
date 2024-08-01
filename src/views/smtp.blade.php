@@ -45,7 +45,7 @@
 
                 setTimeout(() => {
                     fetchNextStep();
-                }, 4000);
+                }, 1000);
             });
         });
     </script>
