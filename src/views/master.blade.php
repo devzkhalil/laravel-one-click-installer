@@ -115,6 +115,28 @@
                 });
             });
         });
+
+        function fetchNextStep() {
+
+            axios.post("{{ route('installer.next-step') }}", {
+                    _token: '{{ csrf_token() }}'
+                })
+                .then(function(response) {
+                    if (response.data.success && response.data.redirect_url) {
+                        window.location.href = response.data.redirect_url;
+                    }
+
+                    if (!response.data.success && response.data.message) {
+                        showError(response.data.message);
+                        hideLoader();
+                    }
+
+                })
+                .catch(function(response) {
+                    showError(response);
+                    hideLoader();
+                });
+        }
     </script>
     @yield('scripts')
 </body>

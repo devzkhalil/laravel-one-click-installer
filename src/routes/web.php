@@ -17,7 +17,5 @@ Route::prefix('install')->middleware(['web', 'install'])->controller(InstallerCo
     Route::get('/smtp', 'smtp')->name('installer.smtp');
     Route::post('/smtp', 'saveSmtp')->name('installer.smtp.save');
 
-    // Route::get('/migration', 'migration')->name('installer.migration');
-    // Route::get('/database', 'database')->name('installer.database');
-
+    Route::post('/next-step', 'fetchNextStep')->name('installer.next-step');
 });

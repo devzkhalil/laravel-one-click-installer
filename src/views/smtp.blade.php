@@ -36,22 +36,16 @@
 
                 axios.post(action, formData)
                     .then(function(response) {
-                        if (response.data.success && response.data.redirect_url) {
-                            setTimeout(() => {
-                                window.location.href = response.data.redirect_url;
-                            }, 2000);
-                        }
-
-                        if (!response.data.success && response.data.message) {
-                            showError(response.data.message);
-                            hideLoader();
-                        }
-
+                        //
                     })
                     .catch(function(response) {
-                        showError(response);
-                        hideLoader();
+                        // showError(response);
+                        // hideLoader();
                     });
+
+                setTimeout(() => {
+                    fetchNextStep();
+                }, 4000);
             });
         });
     </script>
