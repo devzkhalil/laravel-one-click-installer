@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 use Devzkhalil\Installer\Helpers\Environment;
 use Devzkhalil\Installer\Helpers\Requirements;
 
@@ -273,6 +274,9 @@ class InstallerController extends Controller
             if (file_exists(storage_path('framework/installer-step.php'))) {
                 unlink(storage_path('framework/installer-step.php'));
             }
+            
+            Session::flush();
+
             return url(config('installer.redirect'));
         }
     }
