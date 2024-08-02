@@ -78,7 +78,8 @@ class InstallerController extends Controller
         };
 
         $license_input_name = $this->license_input_name;
-        return view('installer::license-validation', compact('license_input_name'));
+        $is_first_step = $this->isFirstStep();
+        return view('installer::license-validation', compact('license_input_name', 'is_first_step'));
     }
 
     public function licenseValidationProcess(Request $request)
@@ -109,6 +110,7 @@ class InstallerController extends Controller
         };
 
         return view('installer::begin', [
+            'is_first_step' => $this->isFirstStep(),
             'phpVersionInfo' =>  $this->phpVersionInfo,
             'phpExtensions' => $this->phpExtensions,
             'supported' => $this->support,
@@ -124,7 +126,8 @@ class InstallerController extends Controller
             return $next_step;
         };
 
-        return view('installer::basic-information');
+        $is_first_step = $this->isFirstStep();
+        return view('installer::basic-information', compact('is_first_step'));
     }
 
     public function saveBasicInformation(Request $request)
@@ -153,7 +156,8 @@ class InstallerController extends Controller
             return $next_step;
         };
 
-        return view('installer::database');
+        $is_first_step = $this->isFirstStep();
+        return view('installer::database', compact('is_first_step'));
     }
 
     public function saveDatabase(Request $request)
@@ -205,7 +209,8 @@ class InstallerController extends Controller
         };
 
         $smtp_info = config('installer.smtp');
-        return view('installer::smtp', ['smtp_info' => $smtp_info]);
+        $is_first_step = $this->isFirstStep();
+        return view('installer::smtp', ['smtp_info' => $smtp_info, 'is_first_step' => $is_first_step]);
     }
 
     public function saveSmtp(Request $request)
@@ -244,6 +249,16 @@ class InstallerController extends Controller
         return true;
     }
 
+    public function isFirstStep()
+    {
+        // get the current step
+        $current_step = $this->getCurrentStep();
+        $steps = $this->enabledSteps;
+
+        // find the index of the current step
+        return array_search($current_step, $steps);
+    }
+
     public function getNextStep(): string
     {
         // get the current step
@@ -278,6 +293,32 @@ class InstallerController extends Controller
             Session::flush();
 
             return url(config('installer.redirect'));
+        }
+    }
+
+    public function previous()
+    {
+        try {
+            // get the current step
+            $current_step = $this->getCurrentStep();
+
+            $steps = $this->enabledSteps;
+
+            // find the index of the current step
+            $current_index = array_search($current_step, $steps);
+
+            // get the next step
+            $previous_step = $steps[$current_index - 1];
+
+            // define file name
+            $filePath = storage_path('framework/installer-step.php');
+            // create the file
+            file_put_contents($filePath, $previous_step);
+
+            return $this->begin();
+        } catch (\Throwable $th) {
+
+            return $this->begin();
         }
     }
 

@@ -57,7 +57,13 @@
             <input type="text" class="form-control" id="DB_PASSWORD" name="DB_PASSWORD"
                 value="{{ config('database.connections.' . config('database.default') . '.password') }}">
         </div>
-        <div class="form-group text-center mt-5">
+        <div
+            class="form-group text-center mt-5 d-flex {{ $is_first_step == 0 ? 'justify-content-center' : 'justify-content-between' }} align-items-center">
+            @if ($is_first_step !== 0)
+                <a href="{{ route('installer.previous') }}" class="btn btn-info loader-show">
+                    Previous
+                </a>
+            @endif
             <button type="submit" class="btn btn-success loader-show">
                 Click To Complete
             </button>

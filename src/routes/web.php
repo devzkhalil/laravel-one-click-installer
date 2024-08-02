@@ -18,4 +18,5 @@ Route::prefix('install')->middleware(['web', 'install'])->controller(InstallerCo
     Route::post('/smtp', 'saveSmtp')->name('installer.smtp.save');
 
     Route::post('/next-step', 'fetchNextStep')->name('installer.next-step');
+    Route::get('/previous', 'previous')->name('installer.previous');
 });

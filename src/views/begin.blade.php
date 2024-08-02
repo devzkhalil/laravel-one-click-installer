@@ -62,7 +62,13 @@
                 @endif
             </tbody>
         </table>
-        <div class="text-center">
+        <div
+            class="form-group text-center mt-5 d-flex {{ $is_first_step == 0 ? 'justify-content-center' : 'justify-content-between' }} align-items-center">
+            @if ($is_first_step !== 0)
+                <a href="{{ route('installer.previous') }}" class="btn btn-info loader-show">
+                    Previous
+                </a>
+            @endif
             @if ($supported)
                 <a href="{{ $next_step_url }}" class="btn btn-success loader-show">
                     Click To Complete
