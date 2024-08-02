@@ -43,7 +43,9 @@
                         // hideLoader();
                     });
 
-                fetchNextStep();
+                setTimeout(() => {
+                    fetchNextStep();
+                }, 1000);
             });
         });
     </script>
