@@ -113,7 +113,7 @@ class InstallerController extends Controller
             'phpExtensions' => $this->phpExtensions,
             'supported' => $this->support,
             'symlink' => $this->symlink,
-            'next_step_url' => $this->getNextStep()
+            'next_step_url' => $this->support ? $this->getNextStep() : route('installer.require'),
         ]);
     }
 
@@ -274,7 +274,7 @@ class InstallerController extends Controller
             if (file_exists(storage_path('framework/installer-step.php'))) {
                 unlink(storage_path('framework/installer-step.php'));
             }
-            
+
             Session::flush();
 
             return url(config('installer.redirect'));
@@ -283,7 +283,7 @@ class InstallerController extends Controller
 
     public function getCurrentStep()
     {
-        return file_get_contents(storage_path('framework/installer-step.php'));
+        return file_exists(storage_path('framework/installer-step.php')) ? file_get_contents(storage_path('framework/installer-step.php')) : null;
     }
 
     public function fetchNextStep()
